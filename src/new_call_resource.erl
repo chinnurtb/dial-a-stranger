@@ -1,8 +1,4 @@
-%% @author author <author@example.com>
-%% @copyright YYYY author.
-%% @doc Example webmachine_resource.
-
--module(dial_a_stranger_resource).
+-module(new_call_resource).
 -export([init/1, content_types_provided/2, to_xml/2]).
 
 -include_lib("webmachine/include/webmachine.hrl").
