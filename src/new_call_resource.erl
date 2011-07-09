@@ -14,5 +14,5 @@ content_types_provided(ReqData, Context) ->
 
 to_xml(ReqData, State) ->
     Room = conference:assign_room(),
-    Response = io_lib:format("<Response><Dial><Conference>~p</Conference></Dial></Response>", [Room]),
+    Response = io_lib:format("<Response><Dial><Conference beep="false" waitUrl="" startConferenceOnJoin="true" endConferenceOnExit="true">~p</Conference></Dial></Response>", [Room]),
     {Response, ReqData, State}.
