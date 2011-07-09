@@ -19,5 +19,5 @@ to_xml(ReqData, State) ->
 	    second ->
 		"Someone is already waiting in this room. Say hi."
 	end,
-    Response = io_lib:format("<Response><Say>~s</Say><Dial><Conference>~w</Conference></Dial></Response>", [Say, Room]),
+    Response = io_lib:format("<Response><Say>~s</Say><Dial><Conference waitUrl=\"\" startConferenceOnJoin=\"true\">~w</Conference></Dial></Response>", [Say, Room]),
     {Response, ReqData, State}.
