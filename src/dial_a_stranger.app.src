@@ -1,0 +1,18 @@
+%%-*- mode: erlang -*-
+{application, dial_a_stranger,
+ [
+  {description, "dial_a_stranger"},
+  {vsn, "1"},
+  {modules, []},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  inets,
+                  crypto,
+                  mochiweb,
+                  webmachine
+                 ]},
+  {mod, { dial_a_stranger_app, []}},
+  {env, []}
+ ]}.
