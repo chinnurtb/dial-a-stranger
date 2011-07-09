@@ -1,0 +1,2 @@
+-define(BotNumber, "+1 (650) 763-8782").
+-define(MainNumber, "+1 (650) 763-8833").
