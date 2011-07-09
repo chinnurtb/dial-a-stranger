@@ -53,5 +53,8 @@ init([]) ->
     Web = {webmachine_mochiweb,
            {webmachine_mochiweb, start, [WebConfig]},
            permanent, 5000, worker, dynamic},
-    Processes = [Web],
+    Conference = {conference,
+		  {conference, start_link, []},
+		  permanent, 5000, worker, dynamic},
+    Processes = [Web, Conference],
     {ok, { {one_for_one, 10, 10}, Processes} }.

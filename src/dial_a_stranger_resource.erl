@@ -13,4 +13,6 @@ content_types_provided(ReqData, Context) ->
    {[{"text/xml", to_xml}], ReqData, Context}.
 
 to_xml(ReqData, State) ->
-    {"<Response><Say>Hello</Say></Response>", ReqData, State}.
+    Room = conference:assign_room(),
+    Response = io_lib:format("<Response><Dial><Conference>~p</Conference></Dial></Response>", [Room]),
+    {Response, ReqData, State}.
