@@ -1,4 +1,4 @@
--module(new_call_resource).
+-module(main_new_call_resource).
 -export([init/1, content_types_provided/2, to_xml/2]).
 
 -include_lib("webmachine/include/webmachine.hrl").
@@ -19,5 +19,5 @@ to_xml(ReqData, State) ->
 	    second ->
 		"A stranger is waiting for you. Say hi."
 	end,
-    Response = io_lib:format("<Response><Say>~s</Say><Dial><Conference waitUrl=\"\" startConferenceOnJoin=\"true\" endConferenceOnExit=\"true\">~w</Conference></Dial><Say>Your stranger has left you. Goodbye.</Say></Response>", [Say, Room]),
+    Response = io_lib:format("<Response><Say>~s</Say><Dial><Conference waitUrl=\"\" startConferenceOnEnter=\"true\" endConferenceOnExit=\"true\">~w</Conference></Dial><Say>Your stranger has left you. Goodbye.</Say></Response>", [Say, Room]),
     {Response, ReqData, State}.

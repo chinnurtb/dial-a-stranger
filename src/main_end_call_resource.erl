@@ -1,4 +1,4 @@
--module(end_call_resource).
+-module(main_end_call_resource).
 -export([init/1, content_types_provided/2, to_xml/2]).
 
 -include_lib("webmachine/include/webmachine.hrl").
