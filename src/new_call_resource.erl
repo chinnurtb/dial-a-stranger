@@ -9,6 +9,13 @@ content_types_provided(ReqData, Context) ->
    {[{"text/xml", to_xml}], ReqData, Context}.
 
 to_xml(ReqData, State) ->
-    Room = conference:assign_room(),
-    Response = io_lib:format("<Response><Dial><Conference>~p</Conference></Dial></Response>", [Room]),
+    {Order, Room} = conference:assign_room(),
+    Say = 
+	case Order of
+	    first ->
+		"Wait here for the next stranger.";
+	    second ->
+		"Someone is already waiting in this room. Say hi."
+	end,
+    Response = io_lib:format("<Response><Say>~s</Say><Dial><Conference>~w</Conference></Dial></Response>", [Say, Room]),
     {Response, ReqData, State}.

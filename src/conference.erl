@@ -27,9 +27,9 @@ handle_call(assign_room, _From, State = #state{room=Room}) ->
     case Room of
 	none ->
 	    Room2 = now(),
-	    {reply, Room2, State#state{room=Room2}};
+	    {reply, {first, Room2}, State#state{room=Room2}};
 	_ ->
-	    {reply, Room, State#state{room=none}}
+	    {reply, {second, Room}, State#state{room=none}}
     end.
 
 handle_cast(_Msg, State) ->
