@@ -10,6 +10,6 @@ content_types_provided(ReqData, Context) ->
 
 to_xml(ReqData, State) ->
     Args = wrq:req_qs(ReqData),
-    From = proplists:lookup("From", Args),
-    conference:end_call(From),
+    Sid = proplists:lookup("CallSid", Args),
+    conference:end_call(Sid),
     {"", ReqData, State}.
