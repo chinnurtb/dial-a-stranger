@@ -9,7 +9,9 @@ content_types_provided(ReqData, Context) ->
    {[{"text/xml", to_xml}], ReqData, Context}.
 
 to_xml(ReqData, State) ->
-    {Order, Room} = conference:assign_room(),
+    Args = wrq:req_qs(ReqData),
+    From = proplists:lookup("From", Args),
+    {Order, Room} = conference:new_call(From),
     Say = 
 	case Order of
 	    first ->
