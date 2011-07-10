@@ -20,6 +20,8 @@ ensure_started(App) ->
 start_link() ->
     ensure_started(inets),
     ensure_started(crypto),
+    ensure_started(public_key),
+    ensure_started(ssl),
     ensure_started(mochiweb),
     application:set_env(webmachine, webmachine_logger_module, 
                         webmachine_logger),
@@ -31,6 +33,8 @@ start_link() ->
 start() ->
     ensure_started(inets),
     ensure_started(crypto),
+    ensure_started(public_key),
+    ensure_started(ssl),
     ensure_started(mochiweb),
     application:set_env(webmachine, webmachine_logger_module, 
                         webmachine_logger),
@@ -43,6 +47,8 @@ stop() ->
     Res = application:stop(dial_a_stranger),
     application:stop(webmachine),
     application:stop(mochiweb),
+    application:stop(public_key),
+    application:stop(ssl),
     application:stop(crypto),
     application:stop(inets),
     Res.

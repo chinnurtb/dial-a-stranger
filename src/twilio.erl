@@ -2,16 +2,17 @@
 
 -include("auth.hrl").
 
--export([send_sms/3]).
+-export([send_sms/3, base_url/0]).
 
 send_sms(To, From, Body) ->
     Path = io_lib:format("/2010-04-01/Accounts/~s/SMS/Messages", [?AccountSid]),
-    post(Path, [{"to", To}, {"from", From}, {"body", Body}]).
+    {201, _Result} = post(Path, [{"To", To}, {"From", From}, {"Body", Body}]),
+    ok.
 
 % --- internal ---
 
 base_url() ->
-    io_lib:format("https://~s:~s@api.twilio.com", [?AccountSid, ?AuthToken]).
+    lists:flatten(io_lib:format("https://~s:~s@api.twilio.com", [?AccountSid, ?AuthToken])).
 
 % from ibrowse
 url_encode(Str) when is_list(Str) ->
@@ -34,7 +35,7 @@ d2h(N) when N<10 -> N+$0;
 d2h(N) -> N+$a-10.
 
 post(Path, Args) ->
-    Body = lists:foldl(fun ({Key, Value}, Acc) -> url_encode(Key) ++ "=" ++ url_encode(Value) ++ "&" ++ Acc end, "", Args),
+    Body = lists:foldl(fun ({Key, Value}, Acc) -> url_encode(Key) ++ "=" ++ url_encode(Value) ++ (if Acc == "" -> ""; true -> "&" end) ++ Acc end, "", Args),
     {ok, {Code, Result}} = 
 	httpc:request(
 	  post, 

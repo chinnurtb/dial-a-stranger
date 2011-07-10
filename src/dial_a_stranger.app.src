@@ -10,6 +10,8 @@
                   stdlib,
                   inets,
                   crypto,
+		  public_key,
+		  ssl,
                   mochiweb,
                   webmachine
                  ]},
