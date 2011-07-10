@@ -10,7 +10,7 @@ content_types_provided(ReqData, Context) ->
 
 to_xml(ReqData, State) ->
     Args = wrq:req_qs(ReqData),
-    Sid = proplists:lookup("CallSid", Args),
+    {"CallSid", Sid} = proplists:lookup("CallSid", Args),
     {Order, Room} = conference:new_call(Sid),
     Say = 
 	case Order of

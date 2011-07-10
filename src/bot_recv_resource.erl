@@ -10,7 +10,7 @@ content_types_provided(ReqData, Context) ->
 
 to_xml(ReqData, State) ->
     Args = wrq:req_qs(ReqData),
-    From = proplists:lookup("From", Args),
-    Body = proplists:lookup("Body", Args),
+    {"From", From} = proplists:lookup("From", Args),
+    {"Body", Body} = proplists:lookup("Body", Args),
     bot:recv(From, Body),
     {"<Response></Response>", ReqData, State}.
