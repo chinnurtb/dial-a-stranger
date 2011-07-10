@@ -10,7 +10,7 @@ Setup a twilio account
 
 Bring up the webserver
 
-    sudo apt-get install erlang erlang-dev python git-core
+    sudo apt-get install erlang erlang-dev python git-core build-essential
     git clone git@github.com:spawnfest/dial-a-stranger.git
     cd dial-a-stranger
     echo '-define(AccountSid, "your account sid here")' >> auth.hrl
