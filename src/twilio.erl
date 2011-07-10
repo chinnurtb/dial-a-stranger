@@ -37,7 +37,7 @@ d2h(N) -> N+$a-10.
 post(Path, Args) ->
     Body = lists:foldl(fun ({Key, Value}, Acc) -> url_encode(Key) ++ "=" ++ url_encode(Value) ++ (if Acc == "" -> ""; true -> "&" end) ++ Acc end, "", Args),
     {ok, {Code, Result}} = 
-	httpc:request(
+	http:request(
 	  post, 
 	  {base_url() ++ Path, [], "application/x-www-form-urlencoded", Body}, 
 	  [], 
