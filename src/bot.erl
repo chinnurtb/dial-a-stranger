@@ -34,7 +34,7 @@ handle_cast({recv, Number, Body}, State=#state{bots=Bots, numbers=Numbers}) ->
     case dict:find(Number, Bots) of
 	error ->
 	    ?INFO([recv, {number, Number}, new_bot]),
-	    Bot = open_port({spawn, "./bots/default"},[{packet, 2}]),
+	    Bot = open_port({spawn, "./bots/eliza.py"},[{packet, 2}]),
 	    Bots2 = dict:store(Number, Bot, Bots),
 	    Numbers2 = dict:store(Bot, Number, Numbers);
 	{ok, Value} ->
