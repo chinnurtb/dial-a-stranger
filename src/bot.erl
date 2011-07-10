@@ -25,7 +25,7 @@ recv(Number, Body) ->
 % --- gen_server callbacks ---
 
 init([]) ->
-    {ok, #state{}}.
+    {ok, #state{bots=dict:new(), numbers=dict:new()}}.
 
 handle_call(_Msg, _Number, State) ->
     {noreply, State}.
