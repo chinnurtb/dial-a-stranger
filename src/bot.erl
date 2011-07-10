@@ -1,6 +1,7 @@
 -module(bot).
 
 -include("conf.hrl").
+-include("log.hrl").
 
 -export([start_link/0, recv/2]).
 
@@ -32,10 +33,12 @@ handle_call(_Msg, _Number, State) ->
 handle_cast({recv, Number, Body}, State=#state{bots=Bots, numbers=Numbers}) ->
     case dict:find(Number, Bots) of
 	error ->
+	    ?INFO([recv, {number, Number}, new_bot]),
 	    Bot = open_port({spawn, "./bots/default"},[{packet, 2}]),
 	    Bots2 = dict:store(Number, Bot, Bots),
 	    Numbers2 = dict:store(Bot, Number, Numbers);
 	{ok, Value} ->
+	    ?INFO([recv, {number, Number}, {bot, Value}]),
 	    Bot = Value,
 	    Bots2 = Bots,
 	    Numbers2 = Numbers
@@ -45,6 +48,7 @@ handle_cast({recv, Number, Body}, State=#state{bots=Bots, numbers=Numbers}) ->
 
 handle_info({Bot, {data, Data}}, State=#state{numbers=Numbers}) ->
     {ok, Number} = dict:find(Bot, Numbers),
+    ?INFO([send, {number, Number}, {bot, Bot}, {data, Data}]),
     twilio:send_sms(Number, ?BotNumber, Data),
     {noreply, State}.
 

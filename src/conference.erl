@@ -1,5 +1,7 @@
 -module(conference).
 
+-include("log.hrl").
+
 -export([start_link/0, new_call/1, end_call/1]).
 
 -behaviour(gen_server).
@@ -38,10 +40,12 @@ handle_call({new_call, Sid}, _From, State=#state{room=Room, calls=Calls}) ->
 	    Sid_room = Room,
 	    Room2 = none
     end,
+    ?INFO([new_call, {sid, Sid}, {room, Room}, {sid_room, Sid_room}]),
     Calls2 = dict:store(Sid, Sid_room, Calls),
     {reply, {Order, Sid_room}, State#state{room=Room2, calls=Calls2}};
 handle_call({end_call, Sid}, _From, State=#state{room=Room, calls=Calls}) ->
     {ok, Sid_room} = dict:find(Sid, Calls),
+    ?INFO([end_call, {sid, Sid}, {room, Room}, {sid_room, Sid_room}]),
     Calls2 = dict:erase(Sid, Calls),
     if 
 	Room == Sid_room ->
